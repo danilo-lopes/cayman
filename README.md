@@ -1,13 +1,13 @@
 # Cayman
+
 Cayman Infrastructure from Ília challenge
 
-## First
 
-Infrastruture artifacts in:
+1. [AWS Infra](https://github.com/danilo-lopes/cayman/tree/main/infra)
 
-1. `./infra/`
-2. `./observability/`
-3. `./helm/`
+2. [Observability](https://github.com/danilo-lopes/cayman/tree/main/observability)
+
+3. [Helm](https://github.com/danilo-lopes/cayman/tree/main/application)
 
 ## We have here:
 
