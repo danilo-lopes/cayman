@@ -1,0 +1,8 @@
+apiVersion: v11
+appVersion: "v11"
+description: vote-bot Application
+maintainers:
+- email: lopesd.dan@gmail.com
+  name: Danilo
+name: vote-bot
+version: v11

@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "emoji.name" . }}
+  labels:
+    {{- include "emoji.labels" . | nindent 4 }}
+spec:
+  replicas: {{ .Values.deployment.replicasCount }}
+  selector:
+    matchLabels:
+      {{- include "emoji.selectorLabels" . |nindent 6 }}
+  template:
+    metadata:
+      labels:
+        {{- include "emoji.selectorLabels" . |nindent 8 }}
+      {{- with .Values.deployment.podAnnotations }}
+      annotations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+    spec:
+      serviceAccountName: {{ include "emoji.serviceAccountName" . }}
+      {{- if .Values.deployment.securityContext.enabled }}
+      securityContext:
+        {{- toYaml .Values.deployment.securityContext.spec | nindent 8 }}
+      {{- end }}
+      containers:
+      - name: {{ include "emoji.containerName" . }}
+        {{- if .Values.deployment.podSecurityContext.enabled }}
+        securityContext:
+          {{- toYaml .Values.deployment.podSecurityContext.spec | nindent 10 }}
+        {{- end}}
+        {{- with .Values.deployment.env }}
+        env:
+          {{- toYaml . | nindent 8 }}
+        {{- end}}
+        image: "{{ .Values.deployment.image.repository }}:{{ .Values.deployment.image.tag | default .Chart.AppVersion }}"
+        imagePullPolicy: {{ .Values.deployment.image.pullPolicy }}
+        {{- with .Values.deployment.ports }}
+        ports:
+          {{- toYaml . | nindent 8 }}
+        {{- end }}

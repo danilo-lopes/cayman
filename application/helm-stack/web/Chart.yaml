@@ -1,0 +1,8 @@
+apiVersion: v11
+appVersion: "v11"
+description: Web Application
+maintainers:
+- email: lopesd.dan@gmail.com
+  name: Danilo
+name: web
+version: v11

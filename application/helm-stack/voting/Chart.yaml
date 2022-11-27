@@ -1,0 +1,8 @@
+apiVersion: v11
+appVersion: v11
+description: Voting Application
+maintainers:
+- email: lopesd.dan@gmail.com
+  name: Danilo
+name: voting
+version: v11

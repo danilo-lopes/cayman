@@ -1,0 +1,21 @@
+## Configuration for Loki stack
+
+loki:
+  enabled: true
+
+promtail:
+  enabled: true
+  pipelineStages:
+    - docker: {}
+    - drop:
+        source: namespace
+        expression: "kube-.*"
+
+fluent-bit:
+  enabled: false
+
+grafana:
+  enabled: false
+
+prometheus:
+  enabled: false

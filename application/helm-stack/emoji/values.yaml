@@ -1,0 +1,49 @@
+deployment:
+  replicasCount: 1
+
+  image:
+    repository: "docker.l5d.io/buoyantio/emojivoto-emoji-svc"
+    tag: "v11"
+    pullPolicy: "IfNotPresent"
+
+  podAnnotations: {}
+
+  ## Must be defined by array
+  ports:
+  - containerPort: 8080
+    name: grpc
+  - containerPort: 8801
+    name: prom
+
+  defaultPort: 8080
+
+  ## Must be defined by array
+  env:
+  - name: GRPC_PORT
+    value: "8080"
+  - name: PROM_PORT
+    value: "8801"
+
+  securityContext:
+    enabled: false
+    spec: {}
+
+  podSecurityContext:
+    enabled: false
+    spec: {}
+
+serviceAccount:
+  create: true
+  name: "emoji"
+
+service:
+  type: ClusterIP
+
+  ## Must be defined by array
+  ports:
+  - name: grpc
+    port: 8080
+    targetPort: 8080
+  - name: prom
+    port: 8801
+    targetPort: 8801

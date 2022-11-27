@@ -1,0 +1,49 @@
+## Configuration for Prometheus stack
+
+defaultRules:
+  create: true
+  rules:
+    # do not work on AWS..
+    etcd: false
+    kubeScheduler: false
+
+# do not work on AWS..
+kubeScheduler:
+  enabled: false
+
+# do not work on AWS..
+kubeEtcd:
+  enabled: false
+
+alertmanager:
+  enabled: false
+
+grafana:
+  enabled: true
+  service:
+    type: NodePort
+  adminPassword: zrh-zde3nxg9RPX_emg
+
+prometheusOperator:
+  enabled: true
+
+## Prometheus stack
+prometheus:
+  enabled: true
+  service:
+    type: NodePort
+
+  additionalServiceMonitors:
+    - name: "emojivoto-monitor"
+      selector:
+        matchExpressions:
+          - key: app
+            operator: In
+            values:
+              - emoji-svc
+              - voting-svc
+      namespaceSelector:
+        matchNames:
+          - emojivoto
+      endpoints:
+        - port: "prom"
